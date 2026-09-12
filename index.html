@@ -2214,16 +2214,13 @@ async function buildOrderSummaryData(){
           if(item.solo){
             if(rec.chips && rec.chips[`${base}-solo`]) picks.push(item.solo);
           }
-          ['r6','r7'].forEach(yk=>{
-            if(item[yk] && item[yk].length){
-              const label = YEAR_LABELS[yk] || yk;
-              const selTokens = item[yk].filter((t,ti)=> rec.chips && rec.chips[`${base}-${yk}-${ti}`]);
-              if(selTokens.length) picks.push(`${label}:${selTokens.join('・')}`);
-            }
-          });
+          if(item.r7 && item.r7.length){
+            const selTokens = item.r7.filter((t,ti)=> rec.chips && rec.chips[`${base}-r7-${ti}`]);
+            picks.push(...selTokens);
+          }
 
           const dateVal = (rec.dates && rec.dates[base]) || '';
-          gradeRows[g].push([s.tab || s.name || '', teacherName, item.name, picks.join(' / '), dateVal, sVal, tVal]);
+          gradeRows[g].push([s.tab || s.name || '', teacherName, item.name, picks.join('・'), dateVal, sVal, tVal]);
         });
       });
 
